@@ -1,53 +1,57 @@
-# passport-facebook
+# passport-gitlab2
 
-[![Build](https://img.shields.io/travis/jaredhanson/passport-facebook.svg)](https://travis-ci.org/jaredhanson/passport-facebook)
-[![Coverage](https://img.shields.io/coveralls/jaredhanson/passport-facebook.svg)](https://coveralls.io/r/jaredhanson/passport-facebook)
-[![Quality](https://img.shields.io/codeclimate/github/jaredhanson/passport-facebook.svg?label=quality)](https://codeclimate.com/github/jaredhanson/passport-facebook)
-[![Dependencies](https://img.shields.io/david/jaredhanson/passport-facebook.svg)](https://david-dm.org/jaredhanson/passport-facebook)
+The original Passport-GitLab module has not been maintained for a long time.
+Due to the unclear license situation and issues in the code, this library was
+rewritten based on Passport-Facebook and published under the MIT license.
 
+[![npm version](https://badge.fury.io/js/passport-gilab2.svg)](http://badge.fury.io/js/passport-gilab2)
+[![Build Status](https://travis-ci.org/fh1ch/passport-gitlab2.svg?branch=master&style=flat)](https://travis-ci.org/fh1ch/passport-gitlab2)
+[![Coverage Status](https://coveralls.io/repos/fh1ch/passport-gitlab2/badge.svg?branch=master)](https://coveralls.io/r/fh1ch/passport-gilab2?branch=master)
+[![Code Climate](https://codeclimate.com/github/fh1ch/passport-gitlab2/badges/gpa.svg)](https://codeclimate.com/github/fh1ch/passport-gitlab2)
+[![Dependency Status](https://david-dm.org/fh1ch/passport-gitlab2.svg?theme=shields.io)](https://david-dm.org/fh1ch/passport-gitlab2)
 
-[Passport](http://passportjs.org/) strategy for authenticating with [Facebook](http://www.facebook.com/)
-using the OAuth 2.0 API.
+[Passport](http://passportjs.org/) strategy for authenticating with
+[GitLab](https://gitlab.com/) using the OAuth2 authentication provider service.
 
-This module lets you authenticate using Facebook in your Node.js applications.
-By plugging into Passport, Facebook authentication can be easily and
+This module lets you authenticate using GitLab in your Node.js applications.
+By plugging into Passport, GitLab authentication can be easily and
 unobtrusively integrated into any application or framework that supports
 [Connect](http://www.senchalabs.org/connect/)-style middleware, including
 [Express](http://expressjs.com/).
 
 ## Install
 
-    $ npm install passport-facebook
+```bash
+$ npm install passport-gitlab2
+```
 
 ## Usage
 
-#### Create an Application
-
-Before using `passport-facebook`, you must register an application with
-Facebook.  If you have not already done so, a new application can be created at
-[Facebook Developers](https://developers.facebook.com/).  Your application will
-be issued an app ID and app secret, which need to be provided to the strategy.
-You will also need to configure a redirect URI which matches the route in your
-application.
+Passport-GitLab requires GitLab 7.7.0 or higher to work. Before using the OAuth2
+authentication provider service, you have register a new application in your
+[user profile](https://gitlab.com/profile/applications) or in the administrator
+portal. GitLab will then issue an application ID and a secret, which need to be
+provided to the strategy. You will also need to configure a redirect URI which
+matches the route in your application.
 
 #### Configure Strategy
 
-The Facebook authentication strategy authenticates users using a Facebook
-account and OAuth 2.0 tokens.  The app ID and secret obtained when creating an
-application are supplied as options when creating the strategy.  The strategy
+The GitLab authentication strategy authenticates users using a GitLab
+account and OAuth 2.0 tokens. The app ID and secret obtained when creating an
+application are supplied as options when creating the strategy. The strategy
 also requires a `verify` callback, which receives the access token and optional
 refresh token, as well as `profile` which contains the authenticated user's
-Facebook profile.  The `verify` callback must call `cb` providing a user to
+GitLab profile. The `verify` callback must call `cb` providing a user to
 complete authentication.
 
 ```js
-passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+passport.use(new GitLabStrategy({
+    clientID: GITLAB_APP_ID,
+    clientSecret: GITLAB_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/gitlab/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    User.findOrCreate({gitlabId: profile.id}, function (err, user) {
       return cb(err, user);
     });
   }
@@ -56,110 +60,85 @@ passport.use(new FacebookStrategy({
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'facebook'` strategy, to
+Use `passport.authenticate()`, specifying the `'gitlab'` strategy, to
 authenticate requests.
 
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
 ```js
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
+app.get('/auth/gitlab', passport.authenticate('gitlab'));
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+app.get('/auth/gitlab/callback',
+  passport.authenticate('gitlab', {
+    failureRedirect: '/login'
+  }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
   });
 ```
 
-## Examples
-
-Developers using the popular [Express](http://expressjs.com/) web framework can
-refer to an [example](https://github.com/passport/express-4.x-facebook-example)
-as a starting point for their own web applications.
-
 ## FAQ
 
-##### How do I ask a user for additional permissions?
+##### How do I use my own GitLab instance rather than gitlab.com?
 
-If you need additional permissions from the user, the permissions can be
-requested via the `scope` option to `passport.authenticate()`.
-
-```js
-app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: ['user_friends', 'manage_pages'] }));
-```
-
-Refer to [permissions with Facebook Login](https://developers.facebook.com/docs/facebook-login/permissions/overview)
-for further details.
-
-##### How do I re-ask for for declined permissions?
-
-Set the `authType` option to `rerequest` when authenticating.
+Passport-GitLab automatically uses [GitLab.com](http://gitlab.com/) as
+authentication endpoint when not configured otherwise. You can use the `baseURL`
+parameter to point to any other GitLab instance as following:
 
 ```js
-app.get('/auth/facebook',
-  passport.authenticate('facebook', { authType: 'rerequest', scope: ['user_friends', 'manage_pages'] }));
-```
-
-Refer to [re-asking for declined permissions](https://developers.facebook.com/docs/facebook-login/web#re-asking-declined-permissions)
-for further details.
-
-##### How do I obtain a user profile with specific fields?
-
-The Facebook profile contains a lot of information about a user.  By default,
-not all the fields in a profile are returned.  The fields need by an application
-can be indicated by setting the `profileFields` option.
-
-```js
-new FacebookStrategy({
-  clientID: FACEBOOK_APP_ID,
-  clientSecret: FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:3000/auth/facebook/callback",
-  profileFields: ['id', 'displayName', 'photos', 'email']
+new GitLabStrategy({
+  clientID: GITLAB_APP_ID,
+  clientSecret: GITLAB_APP_SECRET,
+  callbackURL: "http://localhost:3000/auth/gitlab/callback",
+  baseURL: "https://gitlab.example.com/"
 }), ...)
 ```
 
-Refer to the [User](https://developers.facebook.com/docs/graph-api/reference/v2.5/user)
-section of the Graph API Reference for the complete set of available fields.
+All URLs (e.g. token-url, authorization-url, profile-url) are automatically
+adapted to utilize the configured instance. You can of course overwrite all
+URLs manually if needed.
 
-##### How do I include app secret proof in API requests?
+##### How do I change permissions / scope when obtaining a user profile?
 
-Set the `enableProof` option when creating the strategy.
+GitLab only supports one scope at the moment which is `api`. This scope allows
+full read/write access to all API resources. This behavior
+[might change](https://gitlab.com/gitlab-org/gitlab-ce/issues/13951) in the
+future.
+
+Even tough this is not yet needed, you can still modify the requested scope as
+following:
 
 ```js
-new FacebookStrategy({
-  clientID: FACEBOOK_APP_ID,
-  clientSecret: FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:3000/auth/facebook/callback",
-  enableProof: true
-}, ...)
+app.get('/auth/gitlab',
+  passport.authenticate('gitlab', {
+    scope: ['api']
+  }));
 ```
-
-As detailed in [securing graph API requests](https://developers.facebook.com/docs/graph-api/securing-requests#appsecret_proof),
-requiring the app secret for server API requests helps prevent use of tokens
-stolen by malicous software or man in the middle attacks.
-
-##### Why is #\_=\_ appended to the redirect URI?
-
-This behavior is "by design" according to Facebook's response to a [bug](https://developers.facebook.com/bugs/318390728250352)
-filed regarding this issue.
-
-Fragment identifiers are not supplied in requests made to a server, and as such
-this strategy is not aware that this behavior is exhibited and is not affected
-by it.  If desired, this fragment can be removed on the client side.  Refer to
-this [discussion](http://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url) on
-Stack Overflow for recommendations on how to accomplish such removal.
-
 
 ## Contributing
 
+We appreciate contributions in several forms, e.g. documentation, testing,
+coding, issues, etc. Please follow the best practice contribution guide as
+mentioned below when submitting code changes:
+
+#### Code style
+
+This module uses the [Google JavaScript Code-Style](https://google.github.io/styleguide/javascriptguide.xml)
+and enforces it using [JSCS](http://jscs.info/) as additional linter beneath
+[JSHint](http://jshint.com/). These measures ensuring a high level of code
+quality and easy maintainability of it. You can test if your changes comply
+with the code style by executing:
+
+```bash
+$ make lint
+```
+
 #### Tests
 
-The test suite is located in the `test/` directory.  All new features are
-expected to have corresponding test cases.  Ensure that the complete test suite
+The test suite is located in the `test/` directory. All new features are
+expected to have corresponding test cases. Ensure that the complete test suite
 passes by executing:
 
 ```bash
@@ -168,29 +147,17 @@ $ make test
 
 #### Coverage
 
-The test suite covers 100% of the code base.  All new feature development is
-expected to maintain that level.  Coverage reports can be viewed by executing:
+The test suite covers 100% of the code base. All new feature development is
+expected to maintain that level. Coverage reports can be viewed by executing:
 
 ```bash
-$ make test-cov
-$ make view-cov
+$ make coverage-view
 ```
-
-## Support
-
-#### Funding
-
-This software is provided to you as open source, free of charge.  The time and
-effort to develop and maintain this project is dedicated by [@jaredhanson](https://github.com/jaredhanson).
-If you (or your employer) benefit from this project, please consider a financial
-contribution.  Your contribution helps continue the efforts that produce this
-and other open source software.
-
-Funds are accepted via [PayPal](https://paypal.me/jaredhanson), [Venmo](https://venmo.com/jaredhanson),
-and [other](http://jaredhanson.net/pay) methods.  Any amount is appreciated.
 
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2016 Fabio Huser <fabio@fh1.ch>
 
 Copyright (c) 2011-2016 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>

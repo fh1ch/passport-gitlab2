@@ -2,23 +2,18 @@ language: "node_js"
 node_js:
   - "5"
   - "4"
-  - "3" # io.js
-  - "2" # io.js
-  - "1" # io.js
+  - "3"
+  - "2"
+  - "1"
   - "0.12"
-  - "0.10"
-  - "0.8"
-  - "0.6"
-
 
 before_install:
-  - "npm install make-node@0.3.x -g"
-  - "preinstall-compat"
+  - "npm install coveralls"
 
 script:
-  - "make test-cov"
+  - "make all"
 
 after_success:
-  - "make report-cov"
+  - "make coverage-report"
 
 sudo: false

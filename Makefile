@@ -1,25 +1,82 @@
-include node_modules/make-node/main.mk
+BIN = ./node_modules/.bin
 
+# Source directories
+SOURCES = lib/
+TESTS = test/
 
-SOURCES = lib/*.js lib/**/*.js
-TESTS = test/*.test.js
+# Output directories
+DOCS = docs/
+COVERAGE = coverage/
 
-LCOVFILE = ./reports/coverage/lcov.info
+# Report files
+LCOVFILE = coverage/lcov.info
+DOCFILE = docs/index.html
+LCOVHTML = coverage/lcov-report/index.html
 
-MOCHAFLAGS = --require ./test/bootstrap/node
+# Build tools
+JSHINT = $(BIN)/jshint
+JSCS = $(BIN)/jscs
+MOCHA = $(BIN)/mocha
+_MOCHA = $(BIN)/_mocha
+ISTANBUL = $(BIN)/istanbul
+MR_DOC = $(BIN)/mr-doc
+COVERALLS = $(BIN)/coveralls
 
+#========================================
+# Linting
+#========================================
+lint_jshint:
+	$(JSHINT) $(SOURCES) $(TESTS)
 
-view-docs:
-	open ./docs/index.html
+lint_jscs:
+	$(JSCS) $(SOURCES) $(TESTS)
 
-view-cov:
-	open ./reports/coverage/lcov-report/index.html
+lint: lint_jshint lint_jscs
 
-clean: clean-docs clean-cov
-	-rm -r $(REPORTSDIR)
+#========================================
+# Test
+#========================================
+test:
+	$(MOCHA) $(TESTS)
+
+#========================================
+# Coverage
+#========================================
+coverage:
+	$(ISTANBUL) cover --dir $(COVERAGE) $(_MOCHA) -- $(TESTS)
+
+coverage-report:
+	cat $(LCOVFILE) | $(COVERALLS)
+
+coverage-view: coverage
+	open $(LCOVHTML)
+
+#========================================
+# Documentation
+#========================================
+docs:
+	$(MR_DOC) -s $(SOURCES) -n "Passport-GitLab2" -o $(DOCS)
+
+docs-view: docs
+	open $(DOCFILE)
+
+#========================================
+# Clean
+#========================================
+clean-docs:
+	rm -rf docs/
+
+clean-coverage:
+	rm -rf coverage/
+
+clean: clean-coverage clean-docs
 
 clobber: clean
 	-rm -r node_modules
 
+#========================================
+# Global
+#========================================
+all: clean lint test coverage docs
 
-.PHONY: clean clobber
+.PHONY: lint test coverage docs clean clobber

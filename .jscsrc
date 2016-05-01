@@ -1,0 +1,6 @@
+{
+  "preset": "google",
+  "maximumLineLength": 160,
+  "requireSemicolons": true,
+  "jsDoc": false
+}
