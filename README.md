@@ -4,9 +4,9 @@ The original Passport-GitLab module has not been maintained for a long time.
 Due to the unclear license situation and issues in the code, this library was
 rewritten based on Passport-Facebook and published under the MIT license.
 
-[![npm version](https://badge.fury.io/js/passport-gilab2.svg)](http://badge.fury.io/js/passport-gilab2)
+[![npm version](https://badge.fury.io/js/passport-gitlab2.svg)](http://badge.fury.io/js/passport-gitlab2)
 [![Build Status](https://travis-ci.org/fh1ch/passport-gitlab2.svg?branch=master&style=flat)](https://travis-ci.org/fh1ch/passport-gitlab2)
-[![Coverage Status](https://coveralls.io/repos/fh1ch/passport-gitlab2/badge.svg?branch=master)](https://coveralls.io/r/fh1ch/passport-gilab2?branch=master)
+[![Coverage Status](https://coveralls.io/repos/fh1ch/passport-gitlab2/badge.svg?branch=master)](https://coveralls.io/r/fh1ch/passport-gitlab2?branch=master)
 [![Code Climate](https://codeclimate.com/github/fh1ch/passport-gitlab2/badges/gpa.svg)](https://codeclimate.com/github/fh1ch/passport-gitlab2)
 [![Dependency Status](https://david-dm.org/fh1ch/passport-gitlab2.svg?theme=shields.io)](https://david-dm.org/fh1ch/passport-gitlab2)
 
