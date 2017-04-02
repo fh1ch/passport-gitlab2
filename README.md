@@ -102,18 +102,20 @@ URLs manually if needed.
 
 ##### How do I change permissions / scope when obtaining a user profile?
 
-GitLab supports two scopes at the moment which are `read_user` or `api`. By
-default, the `api` scope is used which allows full read/write access to all API
-resources. More information can be found in the [official documentation](https://docs.gitlab.com/ce/integration/oauth_provider.html#authorized-applications).
-
-Changing the scope works like this:
+GitLab supports two scopes at the moment which are `read_user` and `api`. By
+default, the `read_user` scope is used which was introduced with **GitLab
+version 8.15** and requires at least this version. If you have an older version
+or you need full read/write access to all API resources, use the `api` scope
+instead. Changing the OAuth2 scope to `api` works as following:
 
 ```js
 app.get('/auth/gitlab',
   passport.authenticate('gitlab', {
-    scope: ['read_user']
+    scope: ['api']
   }));
 ```
+
+More information can be found in the [official GitLab documentation](https://docs.gitlab.com/ce/integration/oauth_provider.html#authorized-applications).
 
 ## Contributing
 
