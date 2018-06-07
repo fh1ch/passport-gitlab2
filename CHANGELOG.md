@@ -1,4 +1,10 @@
-<a name="3.0.0"></a>
+
+# [4.0.0](https://github.com/fh1ch/passport-gitlab2/compare/v3.0.0...v4.0.0) (2018-06-07)
+
+### Features
+
+* Update from GitLab API v3 to v4, https://github.com/fh1ch/passport-gitlab2/pull/7
+
 # [3.0.0](https://github.com/fh1ch/passport-gitlab2/compare/v2.2.0...v3.0.0) (2017-04-02)
 
 ### Features
@@ -13,8 +19,6 @@
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/fh1ch/passport-gitlab2/compare/v2.1.0...v2.2.0) (2016-05-01)
 
-### Features 
+### Features
 
 * **gitlab:** implemented authentication provider for GitLab ([3d2e203](https://github.com/fh1ch/passport-gitlab2/commit/3d2e20303593f4522fe79ec9793f9874667cb824))
-
-
