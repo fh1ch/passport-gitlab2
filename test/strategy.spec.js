@@ -22,7 +22,7 @@ describe('Strategy', function() {
     }, function() {});
 
     it('should have correct profile URL', function() {
-      expect(strategy._profileURL).to.equal('https://example.com/gl/api/v3/user');
+      expect(strategy._profileURL).to.equal('https://example.com/gl/api/v4/user');
     });
   });
 

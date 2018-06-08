@@ -12,7 +12,7 @@ describe('Profile', function() {
     }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
-      if (url !== 'https://gitlab.com/api/v3/user') {
+      if (url !== 'https://gitlab.com/api/v4/user') {
         return callback(new Error('incorrect url argument'));
       }
       if (accessToken !== 'token') {
