@@ -27,7 +27,7 @@ $ npm install passport-gitlab2
 
 ## Usage
 
-Passport-GitLab requires GitLab 7.7.0 or higher to work. Before using the OAuth2
+Passport-GitLab requires GitLab 9.0.0 or higher to work. Before using the OAuth2
 authentication provider service, you have register a new application in your
 [user profile](https://gitlab.com/profile/applications) or in the administrator
 portal. GitLab will then issue an application ID and a secret, which need to be
@@ -102,11 +102,9 @@ URLs manually if needed.
 
 ##### How do I change permissions / scope when obtaining a user profile?
 
-GitLab supports two scopes at the moment which are `read_user` and `api`. By
-default, the `read_user` scope is used which was introduced with **GitLab
-version 8.15** and requires at least this version. If you have an older version
-or you need full read/write access to all API resources, use the `api` scope
-instead. Changing the OAuth2 scope to `api` works as following:
+GitLab supports multiple scopes at the moment like `read_user` and `api`.
+By default, the `read_user` scope is used. Changing the OAuth2 scope to
+`api` works as following:
 
 ```js
 app.get('/auth/gitlab',
