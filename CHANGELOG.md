@@ -1,3 +1,11 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/fh1ch/passport-gitlab2/compare/v3.0.0...v4.0.0) (2018-06-10)
+
+### BREAKING CHANGES
+
+* readme: This release requires at least GitLab version 9.0.0.
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/fh1ch/passport-gitlab2/compare/v2.2.0...v3.0.0) (2017-04-02)
 
