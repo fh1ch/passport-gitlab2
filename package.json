@@ -34,7 +34,7 @@
     "nyc": "^13.2.0"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 6.0.0"
   },
   "scripts": {
     "test": "mocha test/*.spec.js"
