@@ -1,3 +1,15 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/fh1ch/passport-gitlab2/compare/v4.0.0...v5.0.0) (2019-02-10)
+
+### Bug Fixes
+
+* correct all linter findings and update to ES6 syntax ([3653e53](https://github.com/fh1ch/passport-gitlab2/commit/3653e5345a2d8feb74a6f31ac27de6cf27d47b3a))
+
+### BREAKING CHANGES
+
+*  This release requires at least Node.js 6.
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/fh1ch/passport-gitlab2/compare/v3.0.0...v4.0.0) (2018-06-10)
 
