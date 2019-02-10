@@ -5,12 +5,10 @@ SOURCES = lib/
 TESTS = test/
 
 # Output directories
-DOCS = docs/
 COVERAGE = coverage/
 
 # Report files
 LCOVFILE = coverage/lcov.info
-DOCFILE = docs/index.html
 LCOVHTML = coverage/lcov-report/index.html
 
 # Build tools
@@ -19,7 +17,6 @@ JSCS = $(BIN)/jscs
 MOCHA = $(BIN)/mocha
 _MOCHA = $(BIN)/_mocha
 ISTANBUL = $(BIN)/istanbul
-MR_DOC = $(BIN)/mr-doc
 COVERALLS = $(BIN)/coveralls
 
 #========================================
@@ -52,24 +49,12 @@ coverage-view: coverage
 	open $(LCOVHTML)
 
 #========================================
-# Documentation
-#========================================
-docs:
-	$(MR_DOC) -s $(SOURCES) -n "Passport-GitLab2" -o $(DOCS)
-
-docs-view: docs
-	open $(DOCFILE)
-
-#========================================
 # Clean
 #========================================
-clean-docs:
-	rm -rf docs/
-
 clean-coverage:
 	rm -rf coverage/
 
-clean: clean-coverage clean-docs
+clean: clean-coverage
 
 clobber: clean
 	-rm -r node_modules
@@ -77,6 +62,6 @@ clobber: clean
 #========================================
 # Global
 #========================================
-all: clean lint test coverage docs
+all: clean lint test coverage
 
-.PHONY: lint test coverage docs clean clobber
+.PHONY: lint test coverage clean clobber
