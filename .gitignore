@@ -1,6 +1,7 @@
 # Build directories
 docs/
 coverage/
+.nyc_output/
 
 # Node.js
 node_modules

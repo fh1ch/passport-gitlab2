@@ -4,9 +4,6 @@ BIN = ./node_modules/.bin
 SOURCES = lib/
 TESTS = test/
 
-# Output directories
-COVERAGE = coverage/
-
 # Report files
 LCOVFILE = coverage/lcov.info
 LCOVHTML = coverage/lcov-report/index.html
@@ -15,8 +12,7 @@ LCOVHTML = coverage/lcov-report/index.html
 JSHINT = $(BIN)/jshint
 JSCS = $(BIN)/jscs
 MOCHA = $(BIN)/mocha
-_MOCHA = $(BIN)/_mocha
-ISTANBUL = $(BIN)/istanbul
+NYC = $(BIN)/nyc
 COVERALLS = $(BIN)/coveralls
 
 #========================================
@@ -40,7 +36,7 @@ test:
 # Coverage
 #========================================
 coverage:
-	$(ISTANBUL) cover --dir $(COVERAGE) $(_MOCHA) -- $(TESTS)
+	$(NYC) --reporter=lcov --reporter=text-summary $(MOCHA) $(TESTS)
 
 coverage-report:
 	cat $(LCOVFILE) | $(COVERALLS)
