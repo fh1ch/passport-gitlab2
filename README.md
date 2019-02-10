@@ -156,6 +156,6 @@ $ make coverage-view
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2016-2017 Fabio Huser <fabio@fh1.ch>
+Copyright (c) 2016-2019 Fabio Huser <fabio@fh1.ch>
 
 Copyright (c) 2011-2016 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
