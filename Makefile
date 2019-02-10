@@ -1,7 +1,6 @@
 BIN = ./node_modules/.bin
 
 # Source directories
-SOURCES = lib/
 TESTS = test/
 
 # Report files
@@ -9,8 +8,7 @@ LCOVFILE = coverage/lcov.info
 LCOVHTML = coverage/lcov-report/index.html
 
 # Build tools
-JSHINT = $(BIN)/jshint
-JSCS = $(BIN)/jscs
+ESLINT = $(BIN)/eslint
 MOCHA = $(BIN)/mocha
 NYC = $(BIN)/nyc
 COVERALLS = $(BIN)/coveralls
@@ -18,13 +16,8 @@ COVERALLS = $(BIN)/coveralls
 #========================================
 # Linting
 #========================================
-lint_jshint:
-	$(JSHINT) $(SOURCES) $(TESTS)
-
-lint_jscs:
-	$(JSCS) $(SOURCES) $(TESTS)
-
-lint: lint_jshint lint_jscs
+lint:
+	$(ESLINT) .
 
 #========================================
 # Test
