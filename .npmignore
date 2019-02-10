@@ -1,6 +1,7 @@
 # Build directories
 docs/
 coverage/
+.nyc_output/
 
 # Build files
 Makefile
@@ -8,6 +9,5 @@ test/
 
 # Project files
 .editorconfig
-.jscsrc
-.jshintrc
+.eslintrc.yml
 .travis.yml

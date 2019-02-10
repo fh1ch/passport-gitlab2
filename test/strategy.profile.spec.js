@@ -1,12 +1,11 @@
-var expect = require('chai').expect;
-var GitLabStrategy = require('../lib/strategy');
+const expect = require('chai').expect;
+const GitLabStrategy = require('../lib/strategy');
 
 describe('Profile', function() {
-
   describe('fetched from default endpoint', function() {
-    var profile;
+    let profile;
 
-    var strategy = new GitLabStrategy({
+    const strategy = new GitLabStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function() {});
@@ -19,7 +18,7 @@ describe('Profile', function() {
         return callback(new Error('incorrect token argument'));
       }
 
-      var body = JSON.stringify({
+      const body = JSON.stringify({
         // jshint camelcase: false
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         id: 1,
@@ -86,16 +85,15 @@ describe('Profile', function() {
   });
 
   describe('error caused by invalid token', function() {
-    var err;
-    var profile;
+    let err;
 
-    var strategy =  new GitLabStrategy({
+    const strategy = new GitLabStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
-      var body = JSON.stringify({
+      const body = JSON.stringify({
         error: {
           message: 'Invalid OAuth access token.',
           type: 'OAuthException',
@@ -123,16 +121,15 @@ describe('Profile', function() {
   });
 
   describe('error caused by malformed response', function() {
-    var err;
-    var profile;
+    let err;
 
-    var strategy =  new GitLabStrategy({
+    const strategy = new GitLabStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
-      var body = 'Hello, world.';
+      const body = 'Hello, world.';
       callback(null, body, undefined);
     };
 
@@ -151,10 +148,10 @@ describe('Profile', function() {
   });
 
   describe('internal error', function() {
-    var err;
-    var profile;
+    let err;
+    let profile;
 
-    var strategy = new GitLabStrategy({
+    const strategy = new GitLabStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function() {});
@@ -183,5 +180,4 @@ describe('Profile', function() {
       expect(profile).to.be.an('undefined');
     });
   });
-
 });

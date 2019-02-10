@@ -1,10 +1,9 @@
-var expect          = require('chai').expect;
-var GitLabStrategy  = require('../lib/strategy');
+const expect = require('chai').expect;
+const GitLabStrategy = require('../lib/strategy');
 
 describe('Strategy', function() {
-
   describe('constructed', function() {
-    var strategy = new GitLabStrategy({
+    const strategy = new GitLabStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function() {});
@@ -15,7 +14,7 @@ describe('Strategy', function() {
   });
 
   describe('constructed with custom baseURL', function() {
-    var strategy = new GitLabStrategy({
+    const strategy = new GitLabStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret',
       baseURL: 'https://example.com/gl/'
@@ -29,10 +28,9 @@ describe('Strategy', function() {
   describe('constructed with undefined options', function() {
     it('should throw', function() {
       expect(function() {
-        //jshint unused:false
-        var strategy = new GitLabStrategy(undefined, function() {});
+        // jshint unused:false
+        new GitLabStrategy(undefined, function() {});
       }).to.throw(Error);
     });
   });
-
 });
