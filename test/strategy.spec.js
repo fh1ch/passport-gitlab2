@@ -23,6 +23,10 @@ describe('Strategy', function() {
     it('should have correct profile URL', function() {
       expect(strategy._profileURL).to.equal('https://example.com/gl/api/v4/user');
     });
+
+    it('should have correct groups URL', function() {
+      expect(strategy._groupsURL).to.equal('https://example.com/gl/api/v4/groups');
+    });
   });
 
   describe('constructed with undefined options', function() {
