@@ -113,6 +113,12 @@ app.get('/auth/gitlab',
   }));
 ```
 
+##### How can I fetch the groups of the logged-in user?
+
+If the OAuth2-scope is set to `read_user api`, the user's groups are also
+requested and included in the `groups` property of the returned object.
+Groups are saved as an array of the group names represented as strings. 
+
 More information can be found in the [official GitLab documentation](https://docs.gitlab.com/ce/integration/oauth_provider.html#authorized-applications).
 
 ## Contributing
