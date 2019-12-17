@@ -25,7 +25,7 @@ describe('Strategy', function() {
     });
 
     it('should have correct groups URL', function() {
-      expect(strategy._groupsURL).to.equal('https://example.com/gl/api/v4/groups');
+      expect(strategy._groupsURL).to.equal('https://example.com/gl/api/v4/groups?min_access_level=10');
     });
   });
 
